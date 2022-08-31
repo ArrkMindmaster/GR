@@ -14,11 +14,11 @@ namespace GuaranteedRate
 
 			foreach(string filename in args)
 			{
-				AddFileData(filename, people);
+				Functionality.AddFileData(filename, people);
 			}
-			OutputToConsole(people, PeopleSortOption.ColorThenLastName);
-			OutputToConsole(people, PeopleSortOption.BirthDate);
-			OutputToConsole(people, PeopleSortOption.LastNameDesc);
+			Functionality.OutputToConsole(people, PeopleSortOption.ColorThenLastName);
+			Functionality.OutputToConsole(people, PeopleSortOption.BirthDate);
+			Functionality.OutputToConsole(people, PeopleSortOption.LastNameDesc);
 		}
 	}
 }
