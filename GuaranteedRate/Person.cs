@@ -11,7 +11,7 @@ namespace GuaranteedRate
 	{
 		public string LastName { get; set; }
 		public string FirstName { get; set; }
-		public string Email { get; set; }   //Any validation on this? Need to include @ and . in order? Duplicates?
+		public string Email { get; set; }   //Any validation on this? Need to include @ and . in order? Duplicates OK?
 		public string FavoriteColor { get; set; }
 		public DateTime DateOfBirth { get; set; }
 		private PeopleSortOption SortOption;

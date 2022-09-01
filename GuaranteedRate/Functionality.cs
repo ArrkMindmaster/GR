@@ -1,26 +1,28 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+
+[assembly: System.Runtime.CompilerServices.InternalsVisibleToAttribute("UnitTests")]
 
 namespace GuaranteedRate
 {
 	public static class Functionality
 	{
 		const string dateFormat = "M/d/yyyy";
-		public static void AddFileData(string filename, List<Person> people)
+
+		public static void AddFileData(IFileSystem fileSystem, IStream streamReader, string filename, List<Person> people)
 		{
 			try
 			{
-				if (File.Exists(filename))
+				if (fileSystem.Exists(filename))
 				{
-					using (StreamReader stream = new StreamReader(filename))
+					using (streamReader)
 					{
 						while (1 == 1)
 						{
-							string line = stream.ReadLine();
+							string line = streamReader.ReadLine();
 							if (line == null)
 							{
 								break;
@@ -41,33 +43,18 @@ namespace GuaranteedRate
 
 		public static void AddLineToPeople(string line, List<Person> people)
 		{
-			if (line.Contains("LastName") && line.Contains("FirstName") && line.Contains("FavoriteColor") && line.Contains("DateOfBirth"))
+			if (line.Contains("LastName") && line.Contains("FirstName") && line.Contains("Email") && line.Contains("FavoriteColor") && line.Contains("DateOfBirth"))
 			{
 				return;
 			}
 			Person person = new Person();
-			string[] fields;
-			if (line.Count(c => c == '|') == 4)
-			{
-				fields = line.Split('|');
-			}
-			else if (line.Count(c => c == ',') == 4)    //Note it is possible to have a comma-delimited file with a non-four number of pipes or spaces, and vice versa
-			{
-				fields = line.Split(',');
-			}
-			else if (line.Count(c => c == ' ') == 4)
-			{
-				fields = line.Split(' ');
-			}
-			else
-			{
-				//Not a valid line, so ignore
-				return;
-			}
+			string[] fields = ParseLine(line);
+			if (fields==null) { return; }
 			DateTime dob;
 			if (!DateTime.TryParse(fields[4], out dob))
 			{
 				//Invalid date; can't add a birthdate.
+				return;
 			}
 			people.Add(new Person()
 			{
@@ -78,6 +65,25 @@ namespace GuaranteedRate
 				DateOfBirth = dob
 			});
 		}
+
+		internal static string[] ParseLine(string line)
+		{
+			if (line.Count(c => c == '|') == 4)
+			{
+				return line.Split('|');
+			}
+			else if (line.Count(c => c == ',') == 4)    //Note it is possible to have a comma-delimited file with a non-four number of pipes or spaces, and vice versa
+			{
+				return line.Split(',');
+			}
+			else if (line.Count(c => c == ' ') == 4)
+			{
+				return line.Split(' ');
+			}
+			//Not a valid line, so ignore
+			return null;
+		}
+
 		internal static void OutputToConsole(List<Person> people, PeopleSortOption sortOption)
 		{
 			people.ForEach(p => p.SetSortOption(sortOption));

@@ -14,7 +14,7 @@ namespace GuaranteedRate
 
 			foreach(string filename in args)
 			{
-				Functionality.AddFileData(filename, people);
+				Functionality.AddFileData(new RealFileSystem(), new StreamReader(filename), filename, people);
 			}
 			Functionality.OutputToConsole(people, PeopleSortOption.ColorThenLastName);
 			Console.WriteLine();
