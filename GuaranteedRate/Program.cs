@@ -17,8 +17,15 @@ namespace GuaranteedRate
 				Functionality.AddFileData(filename, people);
 			}
 			Functionality.OutputToConsole(people, PeopleSortOption.ColorThenLastName);
+			Console.WriteLine();
 			Functionality.OutputToConsole(people, PeopleSortOption.BirthDate);
+			Console.WriteLine();
 			Functionality.OutputToConsole(people, PeopleSortOption.LastNameDesc);
+			if(System.Diagnostics.Debugger.IsAttached)
+			{
+				Console.WriteLine("\nDone! Press any key to exit.");
+				Console.ReadKey();
+			}
 		}
 	}
 }

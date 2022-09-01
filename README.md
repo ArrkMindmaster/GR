@@ -7,4 +7,6 @@ Notes, and additional assumptions:
 *   All lines are terminated with a carriage return.
 *   Duplicates, even in the same file, are OK, though the email address could be used to differentiate specific entries
 *   Any dates which cannot be interpreted as a date indicate an invalid record, and the whole record will be skipped.
+*   File differentiation is unnecessary: a different delimiter can be used on each line, as long as it is consistent in that line.
+*   Adding a blank line between each sort, for differentiation
 

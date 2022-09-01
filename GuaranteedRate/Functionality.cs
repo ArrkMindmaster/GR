@@ -9,7 +9,7 @@ namespace GuaranteedRate
 {
 	public static class Functionality
 	{
-		const string dateFormat = "m/d/yyyy";
+		const string dateFormat = "M/d/yyyy";
 		public static void AddFileData(string filename, List<Person> people)
 		{
 			try
@@ -71,10 +71,10 @@ namespace GuaranteedRate
 			}
 			people.Add(new Person()
 			{
-				LastName = fields[0],
-				FirstName = fields[1],
-				Email = fields[2],
-				FavoriteColor = fields[3],
+				LastName = fields[0].Trim(),
+				FirstName = fields[1].Trim(),
+				Email = fields[2].Trim(),
+				FavoriteColor = fields[3].Trim(),
 				DateOfBirth = dob
 			});
 		}
@@ -84,16 +84,16 @@ namespace GuaranteedRate
 			int maxLastName = people.Max(m => m.LastName.Length) + 1;
 			int maxFirstName = people.Max(m => m.FirstName.Length) + 1;
 			int maxEmail = people.Max(m => m.Email.Length) + 1;
-			int maxFavoriteColor= people.Max(m => m.FavoriteColor.Length) + 1;
+			int maxFavoriteColor = people.Max(m => m.FavoriteColor.Length) + 1;
 			//Don't need length of DOB, since it is the last one to display
 			people.Sort();
-			foreach(Person person in people)
+			foreach (Person person in people)
 			{
 				Console.Write($"{person.LastName.PadRight(maxLastName)}");
 				Console.Write($"{person.FirstName.PadRight(maxFirstName)}");
 				Console.Write($"{person.Email.PadRight(maxEmail)}");
 				Console.Write($"{person.FavoriteColor.PadRight(maxFavoriteColor)}");
-				Console.Write($"{string.Format(person.DateOfBirth.ToString(),dateFormat)}");
+				Console.WriteLine($"{person.DateOfBirth.ToString(dateFormat)}");
 			}
 		}
 
