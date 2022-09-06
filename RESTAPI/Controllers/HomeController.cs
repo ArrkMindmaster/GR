@@ -5,50 +5,49 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using GuaranteedRate;
+using System.Text.Json.Serialization;
+using Newtonsoft.Json;
+using System.Net;
 
 namespace RESTAPI.Controllers
 {
+    [Route("api/people"), ApiController]
     public class HomeController : Controller
     {
-        List<Person> people = new List<Person>();
-        // GET: HomeController
-        public ActionResult Index()
-        {
-            return View();
-        }
+        static List<Person> people = new List<Person>();
 
-        // GET: HomeController/Details/5
-        [HttpGet]
-        public ActionResult Records(string sort)
+        [HttpGet("{sort}")]
+        public IActionResult Get(string sort)
         {
-            switch(sort)
+            string peopleMessage = $"{people.Count} people stored.\n";
+            peopleMessage = "";
+            switch (sort)
             {
                 case "color":
                     people.ForEach(p => p.SetSortOption(PeopleSortOption.ColorThenLastName));
                     people.Sort();
-                    return View();
+                    break;
                 case "birthdate":
                     people.ForEach(p => p.SetSortOption(PeopleSortOption.BirthDate));
                     people.Sort();
-                    return View();
+                    break;
                 case "name":
                     people.ForEach(p => p.SetSortOption(PeopleSortOption.LastNameDesc));
                     people.Sort();
-                    return View();
+                    break;
                 default:
                     //How to produce an error?
-                    return View();
+                    return StatusCode(500, $"Invalid sort selected ({sort})");
             }
+            return StatusCode(200, peopleMessage + JsonConvert.SerializeObject(people));
         }
 
         // POST: HomeController/Create
         [HttpPost]
-        [ActionName("Records")]
-        [ValidateAntiForgeryToken]
-        public ActionResult AddRecord(string line)
+        public IActionResult Post([FromBody] string line)
         {
             Functionality.AddLineToPeople(line, people);
-            return View();
+            return StatusCode(200, $"{line} added!");
         }
     }
 }
