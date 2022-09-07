@@ -12,42 +12,59 @@ using System.Net;
 namespace RESTAPI.Controllers
 {
     [Route("api/people"), ApiController]
-    public class HomeController : Controller
+    public class HomeController : Controller, IPeopleAPI
     {
-        static List<Person> people = new List<Person>();
+        readonly IAPIData people;
+        public HomeController(IAPIData dataSource)
+        {
+            people = dataSource;
+        }
+        public HomeController()
+        {
+            people = new RealData();    //Can't figure out how to make this a parameter of the Program.cs, so making it default
+        }
 
         [HttpGet("{sort}")]
-        public IActionResult Get(string sort)
+        public IActionResult Get(string sortOption)
         {
-            string peopleMessage = $"{people.Count} people stored.\n";
-            peopleMessage = "";
-            switch (sort)
+            if(sortOption.Length<1)
+            {
+                return BadRequest("No sort specified.");
+            }
+            PeopleSortOption sort;
+            switch (sortOption)
             {
                 case "color":
-                    people.ForEach(p => p.SetSortOption(PeopleSortOption.ColorThenLastName));
-                    people.Sort();
+                    sort = PeopleSortOption.ColorThenLastName;
                     break;
                 case "birthdate":
-                    people.ForEach(p => p.SetSortOption(PeopleSortOption.BirthDate));
-                    people.Sort();
+                    sort = PeopleSortOption.BirthDate;
                     break;
                 case "name":
-                    people.ForEach(p => p.SetSortOption(PeopleSortOption.LastNameDesc));
-                    people.Sort();
+                    sort = PeopleSortOption.LastNameDesc;
                     break;
                 default:
                     //How to produce an error?
-                    return StatusCode(500, $"Invalid sort selected ({sort})");
+                    return BadRequest($"Invalid sort selected ({sortOption})");
             }
-            return StatusCode(200, peopleMessage + JsonConvert.SerializeObject(people));
+            string s=JsonConvert.SerializeObject(people.SortedList(sort));
+            return Ok(s);
         }
 
         // POST: HomeController/Create
         [HttpPost]
         public IActionResult Post([FromBody] string line)
         {
-            Functionality.AddLineToPeople(line, people);
-            return StatusCode(200, $"{line} added!");
+            int startCount = people.Count;
+            people.AddDataLine(line);
+            if (startCount == people.Count)
+            {
+                return BadRequest($"{line} is invalid, and not added.");
+            }
+            else
+            {
+                return Ok($"{line} added!");
+            }
         }
     }
 }
