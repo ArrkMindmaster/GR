@@ -55,9 +55,9 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\GuaranteedRate\GuaranteedRate.csproj">
+    <ProjectReference Include="..\GuaranteedRate\GR.csproj">
       <Project>{1deb259f-fddb-4f89-932b-5832b58f1976}</Project>
-      <Name>GuaranteedRate</Name>
+      <Name>GR</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
