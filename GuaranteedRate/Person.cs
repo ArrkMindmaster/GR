@@ -1,19 +1,28 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.Serialization;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace GuaranteedRate
 {
+	[JsonObject(MemberSerialization.OptIn)]
 	public class Person : IEnumerable, IComparable<Person>
 	{
+		[JsonProperty]
 		public string LastName { get; set; }
-		public string FirstName { get; set; }
-		public string Email { get; set; }   //Any validation on this? Need to include @ and . in order? Duplicates OK?
-		public string FavoriteColor { get; set; }
-		public DateTime DateOfBirth { get; set; }
+        [JsonProperty]
+        public string FirstName { get; set; }
+        [JsonProperty]
+        public string Email { get; set; }   //Any validation on this? Need to include @ and . in order? Duplicates OK?
+        [JsonProperty]
+        public string FavoriteColor { get; set; }
+        [JsonProperty]
+        public DateTime DateOfBirth { get; set; }
+
 		private PeopleSortOption SortOption;
 
 		public void SetSortOption(PeopleSortOption option)
