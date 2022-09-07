@@ -1,4 +1,4 @@
-using GuaranteedRate;
+using GR;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Newtonsoft.Json;

@@ -1,4 +1,4 @@
-﻿using GuaranteedRate;
+﻿using GR;
 using System.Collections.Generic;
 
 namespace RESTAPI

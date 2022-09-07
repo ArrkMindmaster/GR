@@ -1,5 +1,5 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using GuaranteedRate;
+using GR;
 using System;
 using System.Collections.Generic;
 

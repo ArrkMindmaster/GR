@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 [assembly: System.Runtime.CompilerServices.InternalsVisibleToAttribute("UnitTests")]
 
-namespace GuaranteedRate
+namespace GR
 {
 	public static class Functionality
 	{

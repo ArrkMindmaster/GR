@@ -7,7 +7,7 @@ using System.Runtime.Serialization;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace GuaranteedRate
+namespace GR
 {
 	[JsonObject(MemberSerialization.OptIn)]
 	public class Person : IEnumerable, IComparable<Person>
