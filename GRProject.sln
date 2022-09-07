@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.3.32825.248
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GR", "GuaranteedRate\GR.csproj", "{1DEB259F-FDDB-4F89-932B-5832B58F1976}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GR", "GR\GR.csproj", "{1DEB259F-FDDB-4F89-932B-5832B58F1976}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UnitTests", "UnitTests\UnitTests.csproj", "{208D7124-4C5E-4360-94E0-1FCDE1017903}"
 EndProject

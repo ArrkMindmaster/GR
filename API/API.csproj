@@ -288,9 +288,9 @@
     <Content Include="Scripts\jquery-1.10.2.min.map" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\GuaranteedRate\GuaranteedRate.csproj">
+    <ProjectReference Include="..\GR\GR.csproj">
       <Project>{1deb259f-fddb-4f89-932b-5832b58f1976}</Project>
-      <Name>GuaranteedRate</Name>
+      <Name>GR</Name>
     </ProjectReference>
   </ItemGroup>
   <PropertyGroup>
