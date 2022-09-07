@@ -1,4 +1,4 @@
-# GuaranteedRate
+# GRate
 Homework project for interview preparation
 
 Notes, and additional assumptions:
